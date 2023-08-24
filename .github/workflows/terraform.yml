@@ -40,6 +40,9 @@ jobs:
         tf_actions_version: latest
         tf_actions_subcommand: 'init'
         tf_actions_working_dir: "./IaC"
+        TF_CLOUD_ORGANIZATION: ${{ env.TF_CLOUD_ORGANIZATION }}
+        TF_API_TOKEN: ${{ env.TF_API_TOKEN }}
+        TF_WORKSPACE: ${{ env.TF_WORKSPACE }}
 
     - name: 'Terraform Validate'
       uses: hashicorp/terraform-github-actions@master
