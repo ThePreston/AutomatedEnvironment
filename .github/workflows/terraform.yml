@@ -1,5 +1,5 @@
 
-name: 'Terraform'
+name: 'Create IaC'
 
 on: workflow_dispatch
 
