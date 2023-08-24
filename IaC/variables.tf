@@ -14,21 +14,25 @@ variable "projectnamingconvention" {
 variable "contactemail" {
   description = "email of the contact resource"
   type        = string
+  default     = ""
 }
 
 variable "companyname" {
   description = "company name of the contact resource"
   type        = string
+  default     = "Microsoft"
 }
 
 variable "sqladminlogin" {
   description = "sql admin login"
   type        = string
+  default     = ""
 }
 
 variable "sqladminloginpassword" {
   description = "sql admin password"
   type        = string
+  default     = ""
 }
 
 variable "subscriptionid" {
