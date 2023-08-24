@@ -26,5 +26,4 @@ variable "sqladminlogin" {
 variable "sqladminloginpassword" {
   description = "sql admin password"
   type        = string
-  default     = "P@ssw0rd1234!"
 }
