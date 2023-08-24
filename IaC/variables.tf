@@ -40,3 +40,15 @@ variable "sqladminloginpassword" {
   type        = string
   default     = ""
 }
+
+variable "organization" {
+  description = "organization name"
+  type        = string
+  default     = ""
+}
+
+variable "workspace" {
+  description = "workspace name"
+  type        = string
+  default     = ""
+}
