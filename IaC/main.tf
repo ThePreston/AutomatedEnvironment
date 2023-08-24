@@ -7,7 +7,6 @@ terraform {
 
     }
   }
-  
 }
 
 provider "azurerm" {
@@ -19,8 +18,6 @@ provider "azurerm" {
   }
 
   skip_provider_registration = true
-
-  subscription_id = var.subscriptionid
 
 }
 
