@@ -12,7 +12,7 @@ terraform {
     organization = "PrestonOrg"
 
     workspaces {
-      name = "EnvironmentGenerator"
+      name = "AutomatedEnvironment"
     }
   }
 }
