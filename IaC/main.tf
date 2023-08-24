@@ -9,10 +9,10 @@ terraform {
   }
 
   cloud {
-    organization = var.organization
+    organization = ""
 
     workspaces {
-      name = var.workspace
+      name = ""
     }
   }
 }
