@@ -37,7 +37,7 @@ jobs:
     - run: echo ${{ steps.plan.outputs.exitcode }}
     
     - name: Terraform Validate
-      id: validate
+    - id: validate
       run: terraform validate -no-color
 
     # Generates an execution plan for Terraform
