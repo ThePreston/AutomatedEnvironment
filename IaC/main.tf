@@ -12,7 +12,7 @@ terraform {
     organization = "PrestonOrg"
 
     workspaces {
-      name = "AutomatedEnvironment"
+      name = "LocalTF"
     }
   }
 }
@@ -25,10 +25,6 @@ provider "azurerm" {
 
   }
 
-  client_id       = var.client_id
-  client_secret   = var.client_secret
-  tenant_id       = var.tenant_id
-  
   skip_provider_registration = true
 
   subscription_id = var.subscriptionid
@@ -39,32 +35,13 @@ locals {
   tags = {
     environment  = "prod"
     department   = "IT"
-    contactemail = "${var.contactemail}"
   }
 }
 
-resource "azurerm_resource_group" "perftestgroup" {
-  name     = "${var.projectnamingconvention}-rg"
-  location = var.location
-
-  tags = local.tags
-}
-
-resource "azurerm_storage_account" "appstorage" {
-  name                     = lower(replace("${var.projectnamingconvention}sto", "-", ""))
-  resource_group_name      = azurerm_resource_group.perftestgroup.name
-  location                 = azurerm_resource_group.perftestgroup.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-
-  tags = local.tags
-}
-
-//create azurerm_mssql_server
 resource "azurerm_mssql_server" "sqlserver" {
   name                         = "${var.projectnamingconvention}-sql"
-  resource_group_name          = azurerm_resource_group.perftestgroup.name
-  location                     = azurerm_resource_group.perftestgroup.location
+  resource_group_name          = var.resourcegroup
+  location                     = var.location
   version                      = "12.0"
   administrator_login          = var.sqladminlogin
   administrator_login_password = var.sqladminloginpassword
