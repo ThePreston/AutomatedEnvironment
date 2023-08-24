@@ -36,7 +36,7 @@ jobs:
 
     - name: 'Terraform Init'
       working-directory: ./IaC
-      run: terraform init -backend-config="storage_account_name=${{ env.STORAGEACCOUNTNAME }}" -backend-config="container_name=${{ env.CONTAINERNAME }}" -backend-config="key=${{ env.CONTAINERNAME }}.tfstate" -backend-config="resource_group_name=${{ env.TFSTATE_RG }}" -var "sqladminloginpassword=${{ vars.sqladminloginpassword }}"
+      run: terraform init -backend-config="storage_account_name=${{ env.STORAGEACCOUNTNAME }}" -backend-config="container_name=${{ env.CONTAINERNAME }}" -backend-config="key=${{ env.CONTAINERNAME }}.tfstate" -backend-config="resource_group_name=${{ env.TFSTATE_RG }}" 
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
