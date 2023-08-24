@@ -3,6 +3,11 @@ name: 'Terraform'
 
 on: [push]
 
+env:
+  TF_CLOUD_ORGANIZATION: "PrestonOrg"
+  TF_API_TOKEN: "${{ secrets.TF_API_TOKEN }}"
+  TF_WORKSPACE: "EnvironmentGenerator"
+  
 jobs:
   terraform:
     name: 'Terraform'
@@ -18,25 +23,24 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
-  
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
+
+    - name: Upload Configuration
+      uses: hashicorp/tfc-workflows-github/actions/upload-configuration@v1.0.0
+      id: plan-upload
       with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-        
-    - name: 'Terraform Init'
-      uses: hashicorp/terraform-github-actions@master
+        workspace: ${{ env.TF_WORKSPACE }}
+        directory: ${{ env.CONFIG_DIRECTORY }}
+
+    - name: Create Plan Run
+      uses: hashicorp/tfc-workflows-github/actions/create-run@v1.0.0
+      id: plan-run
       with:
-        tf_actions_version: latest
-        tf_actions_subcommand: 'init'
-        tf_actions_working_dir: "./IaC"
-         
-    - name: 'Terraform Plan'
-      uses: hashicorp/terraform-github-actions@master
+        workspace: ${{ env.TF_WORKSPACE }}
+        configuration_version: ${{ steps.plan-upload.outputs.configuration_version_id }}
+
+    - name: Get Plan Output
+      uses: hashicorp/tfc-workflows-github/actions/plan-output@v1.0.0
+      id: plan-output
       with:
-        tf_actions_version: latest
-        tf_actions_subcommand: 'plan'
-        tf_actions_working_dir: "./terraform"        
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-        
+        plan: ${{ fromJSON(steps.plan-run.outputs.payload).data.relationships.plan.data.id }}
+
