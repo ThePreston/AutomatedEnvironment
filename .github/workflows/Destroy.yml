@@ -1,1 +1,45 @@
 
+name: 'Terraform'
+
+on: workflow_dispatch
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTIONID }}
+  ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+  STORAGEACCOUNTNAME: "stostate"
+  TFSTATE_RG: "rg-Environment-Generator"
+  CONTAINERNAME: "stateful" 
+  
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./IaC
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+#      with:
+#        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+    - name: 'Terraform Init'
+      working-directory: ./IaC
+      run: terraform init -backend-config="storage_account_name=${{ env.STORAGEACCOUNTNAME }}" -backend-config="container_name=${{ env.CONTAINERNAME }}" -backend-config="key=${{ env.CONTAINERNAME }}.tfstate" -backend-config="resource_group_name=${{ env.TFSTATE_RG }}" 
+      # -backend-config="resource_group_name=$TFSTATE_RG" -backend-config="storage_account_name=$STORAGEACCOUNTNAME" -backend-config="container_name=$CONTAINERNAME"
+
+    # Generates an execution plan for Terraform
+    - name: Terraform destroy
+      working-directory: ./IaC
+      run: terraform destroy
