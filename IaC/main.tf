@@ -8,13 +8,6 @@ terraform {
     }
   }
   
-  backend "remote" {
-    organization = "PrestonOrg"
-
-    workspaces {
-      name = "LocalTF"
-    }
-  }
 }
 
 provider "azurerm" {
