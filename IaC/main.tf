@@ -9,10 +9,10 @@ terraform {
   }
 
   cloud {
-    organization = "PrestonOrg"
+    organization = var.organization
 
     workspaces {
-      name = "EnvironmentGenerator"
+      name = var.workspace
     }
   }
 }
