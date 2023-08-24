@@ -7,8 +7,8 @@ terraform {
 
     }
   }
-
-  cloud {
+  
+  backend "remote" {
     organization = "PrestonOrg"
 
     workspaces {
