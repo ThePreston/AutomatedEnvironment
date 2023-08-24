@@ -37,5 +37,6 @@ jobs:
       with:
         tf_actions_version: latest
         tf_actions_subcommand: 'plan'
-        tf_actions_working_dir: "./terraform"
+        tf_actions_working_dir: "./terraform"        
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
         
