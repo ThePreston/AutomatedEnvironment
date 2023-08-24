@@ -30,14 +30,8 @@ jobs:
       run: terraform init
 
     - name: Terraform Validate
-    - id: validate
       run: terraform validate -no-color
-
     
     - name: terraform plan
       run: terraform plan -no-color
-    
-    - run: echo ${{ steps.plan.outputs.stdout }}
-    - run: echo ${{ steps.plan.outputs.stderr }}
-    - run: echo ${{ steps.plan.outputs.exitcode }}
     
