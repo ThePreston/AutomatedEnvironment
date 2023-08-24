@@ -10,3 +10,9 @@ jobs:
         uses: azure/login@v1
         with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
+          
+      - name: 'Run Azure CLI commands'
+        run: |
+            az account show
+            az group list
+            pwd 
