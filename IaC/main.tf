@@ -51,5 +51,9 @@ resource "azurerm_mssql_database" "sqldb" {
   collation           = "SQL_Latin1_General_CP1_CI_AS"
   
   sku_name            = "Basic"
+  
   tags                = local.tags
+
+  depends_on = [ azurerm_mssql_server.sqlserver ]
+
 }
