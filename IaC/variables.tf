@@ -8,7 +8,7 @@ variable "projectnamingconvention" {
 variable "location" {
   description = "Location of resource"
   type        = string
-  default     = "East US"
+  default     = "South Central US"
 }
 
 variable "resourcegroup" {
