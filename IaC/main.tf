@@ -7,11 +7,6 @@ terraform {
 
     }
   }
-  
-  backend "azurerm" {
-     
-  }
-
 }
 
 provider "azurerm" {
@@ -23,7 +18,7 @@ provider "azurerm" {
   }
 
   skip_provider_registration = true
-
+  
 }
 
 locals {
@@ -33,17 +28,23 @@ locals {
   }
 }
 
+resource "azurerm_resource_group" "generatedrg" {
+  name     = "${var.projectnamingconvention}-rg"
+  location = var.location
+
+  tags = local.tags
+}
+
 resource "azurerm_mssql_server" "sqlserver" {
   name                         = "${var.projectnamingconvention}-sql"
-  resource_group_name          = var.resourcegroup
-  location                     = var.location
+  resource_group_name          = azurerm_resource_group.generatedrg.name
+  location                     = azurerm_resource_group.generatedrg.location
   version                      = "12.0"
   administrator_login          = var.sqladminlogin
   administrator_login_password = var.sqladminloginpassword
   tags                         = local.tags
 }
 
-//create sql database
 resource "azurerm_mssql_database" "sqldb" {
   name                = "${var.projectnamingconvention}-sqldb"
   server_id           = azurerm_mssql_server.sqlserver.id
