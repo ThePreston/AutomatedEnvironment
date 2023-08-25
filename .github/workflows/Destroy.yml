@@ -28,18 +28,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
       
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-#      with:
-#        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     - name: 'Terraform Init'
       working-directory: ./IaC
       run: terraform init -backend-config="storage_account_name=${{ env.STORAGEACCOUNTNAME }}" -backend-config="container_name=${{ env.CONTAINERNAME }}" -backend-config="key=${{ env.CONTAINERNAME }}.tfstate" -backend-config="resource_group_name=${{ env.TFSTATE_RG }}" 
-      # -backend-config="resource_group_name=$TFSTATE_RG" -backend-config="storage_account_name=$STORAGEACCOUNTNAME" -backend-config="container_name=$CONTAINERNAME"
-
-    # Generates an execution plan for Terraform
+      
+    # Destroys the resources
     - name: Terraform destroy
       working-directory: ./IaC
-      run: terraform destroy
+      run: terraform destroy -auto-approve
