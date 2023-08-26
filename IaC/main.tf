@@ -40,6 +40,16 @@ resource "azurerm_resource_group" "generatedrg" {
   tags = local.tags
 }
 
+resource "azurerm_storage_account" "appstorage" {
+  name                     = lower(replace("${var.projectnamingconvention}sto", "-", ""))
+  resource_group_name      = azurerm_resource_group.generatedrg.name
+  location                 = azurerm_resource_group.generatedrg.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  tags = local.tags
+}
+
 resource "azurerm_mssql_server" "sqlserver" {
   name                         = "${var.projectnamingconvention}-sql"
   resource_group_name          = azurerm_resource_group.generatedrg.name
