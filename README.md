@@ -1,5 +1,5 @@
 # AutomatedEnvironment
-Automated Provisioning and Destroying of Environments 
+Automated Provisioning and Destroying of Resources
 
 </BR>
 
