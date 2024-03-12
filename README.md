@@ -1,4 +1,4 @@
-# AutomatedEnvironment
+# Automated Environment
 Automated Provisioning and Destroying of Resources
 
 </BR>
