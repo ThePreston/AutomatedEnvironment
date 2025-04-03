@@ -22,7 +22,12 @@ provider "azurerm" {
 
   }
 
+
+/*
+Deprecated
   skip_provider_registration = true
+
+*/
   
 }
 
