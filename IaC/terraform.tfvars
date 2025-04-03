@@ -1,1 +1,1 @@
-location= "East Us"
+location= "Central Us"
