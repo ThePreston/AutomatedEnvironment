@@ -2,7 +2,7 @@
 variable "projectnamingconvention" {
   description = "Naming Convention"
   type        = string
-  default     = "autogenproj1"
+  default     = "autogenproj"
 }
 
 variable "location" {
