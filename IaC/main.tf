@@ -4,6 +4,7 @@ terraform {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = ">=3.0.0"
+      storage_use_azuread = true
 
     }
   }
@@ -11,6 +12,7 @@ terraform {
 
 terraform {
   backend "azurerm" {
+    use_azuread_auth = true
   }
 }
 
