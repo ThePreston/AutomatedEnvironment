@@ -10,7 +10,7 @@ env:
   ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
   STORAGEACCOUNTNAME: "stostate"
   TFSTATE_RG: "rg-Environment-Generator"
-  CONTAINERNAME: "stateful" 
+  CONTAINERNAME: "state" 
   
 jobs:
   terraform:
