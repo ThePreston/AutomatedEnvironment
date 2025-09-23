@@ -51,7 +51,12 @@ resource "azurerm_storage_account" "appstorage" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  tags = local.tags
+  tags = {
+    environment  = "prod"
+    department   = "IT"
+    SecurityControl = "Ignore"
+  }
+
 }
 
 resource "azurerm_mssql_server" "sqlserver" {
